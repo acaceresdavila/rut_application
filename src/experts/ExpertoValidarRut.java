@@ -1,28 +1,60 @@
 package experts;
 
+import dto.DTORut;
+import entities.Rut;
+
 public class ExpertoValidarRut {
-	// Método para validar
-		public boolean validarRut(String rut) {
-			boolean validacion = false;
-			try {
-				rut =  rut.toUpperCase();
-				rut = rut.replace(".", "");
-				rut = rut.replace("-", "");
-				int rutAux = Integer.parseInt(rut.substring(0, rut.length() - 1));
-				 
-				char dv = rut.charAt(rut.length() - 1);
-				 
-				int m = 0, s = 1;
-				for (; rutAux != 0; rutAux /= 10) {
-				s = (s + rutAux % 10 * (9 - m++ % 6)) % 11;
-				}
-				if (dv == (char) (s != 0 ? s + 47 : 75)) {
-				validacion = true;
-				}
-				 
-			} catch (java.lang.NumberFormatException e) {
-			} catch (Exception e) {
-			}
-			return validacion;
-		}
+	
+	// Método para genrar Rut
+	public DTORut generarRut() {
+		Rut rut = new Rut();
+		return new DTORut();
+	}
+
+	public boolean validarRut(String vrut)
+    {
+        boolean flag = false;
+        String rut = vrut.substring(0, vrut.length() - 1);
+
+        String posibleVerificador = vrut.charAt(vrut.length() - 1)+"";
+        int cantidad = rut.length();
+        int factor = 2;
+        int suma = 0;
+        String verificador = "";
+
+        for(int i = cantidad; i > 0; i--)
+        {
+            if(factor > 7)
+            {
+                factor = 2;
+            }
+            suma += (Integer.parseInt(rut.substring((i-1), i)))*factor;
+            factor++;
+
+        }
+        verificador = String.valueOf(11 - suma%11);
+        if(verificador.equals(posibleVerificador))
+        {
+            flag = true;
+        }
+        else
+        {
+            if((verificador.equals("10")) && (posibleVerificador.toLowerCase().equals("k")))
+            {
+                flag = true;
+            }
+            else
+            {
+                if((verificador.equals("11") && posibleVerificador.equals("0")))
+                {
+                    flag = true;
+                }
+                else
+                {
+                    flag = false;
+                }
+            }
+        }
+        return flag;        
+    }  
 }
