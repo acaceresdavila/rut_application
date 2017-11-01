@@ -1,19 +1,19 @@
 package entities;
 
 public class Rut {
-	private int rut;
-	private int digitoVerificador;
+	private String rut;
+	private String digitoVerificador;
 	
-	public int getRut() {
+	public String getRut() {
 		return rut;
 	}
-	public void setRut(int rut) {
+	public void setRut(String rut) {
 		this.rut = rut;
 	}
-	public int getDigitoVerificador() {
+	public String getDigitoVerificador() {
 		return digitoVerificador;
 	}
-	public void setDigitoVerificador(int digitoVerificador) {
+	public void setDigitoVerificador(String digitoVerificador) {
 		this.digitoVerificador = digitoVerificador;
 	}
 }

@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controllers.ControladorValidarRut;
+import dto.DTORut;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -63,6 +64,12 @@ public class IUPrincipal extends JFrame {
 		contentPane.add(btnValidar);
 		
 		JButton btnGenerar = new JButton("Generar");
+		btnGenerar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				DTORut dtoRut = controlador.generarRut();
+				System.out.println(dtoRut.getRut());
+			}
+		});
 		btnGenerar.setBounds(334, 224, 96, 27);
 		contentPane.add(btnGenerar);
 		
