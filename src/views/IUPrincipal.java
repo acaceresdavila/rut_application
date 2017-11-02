@@ -23,6 +23,9 @@ import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 
+import java.awt.datatransfer.*;
+import java.awt.Toolkit;
+
 public class IUPrincipal extends JFrame {
 
 	private JPanel contentPane;
@@ -115,6 +118,11 @@ public class IUPrincipal extends JFrame {
 		textFieldDigito.setColumns(10);
 		
 		JButton btnCopiar = new JButton("Copiar");
+		btnCopiar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				copiarRut();
+			}
+		});
 		btnCopiar.setBounds(232, 83, 69, 27);
 		contentPane.add(btnCopiar);
 		
@@ -129,5 +137,13 @@ public class IUPrincipal extends JFrame {
 	// Método para validar
 	public boolean validarRut(String rutIngresado) {
 		return controlador.validarRut(rutIngresado);
+	}
+	
+	// Método para copiar al clipboard
+	public void copiarRut() {
+		String rut = textFieldRut.getText() + "-" + textFieldDigito.getText();
+		StringSelection stringSelection = new StringSelection(rut);
+		Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+		clpbrd.setContents(stringSelection, null);
 	}
 }
