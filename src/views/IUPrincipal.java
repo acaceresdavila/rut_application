@@ -1,6 +1,5 @@
 package views;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -20,7 +19,6 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.JTextField;
-import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 
 import java.awt.datatransfer.*;
@@ -38,9 +36,11 @@ public class IUPrincipal extends JFrame {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					IUPrincipal frame = new IUPrincipal();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,6 +53,9 @@ public class IUPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public IUPrincipal() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(IUPrincipal.class.getResource("/com/sun/java/swing/plaf/windows/icons/Computer.gif")));
+		setTitle("Generador/validador de RUT");
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 376, 238);
 		contentPane = new JPanel();
@@ -64,24 +67,26 @@ public class IUPrincipal extends JFrame {
 		
 		JButton btnValidar = new JButton("Validar");
 		btnValidar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				boolean esValido = validarRut(textFieldRut.getText()+textFieldDigito.getText());
 				String mensaje;
 				if(esValido) {
-					mensaje = "Es valido";
+					mensaje = "El RUT es valido";
 				} else {
-					mensaje = "No es valido";
+					mensaje = "El RUT no es valido";
 				}
 				JOptionPane msg = new JOptionPane(mensaje, JOptionPane.PLAIN_MESSAGE);
                 JDialog dlg = msg.createDialog("Resultado validación");
                 dlg.setVisible(true);
 			}
 		});
-		btnValidar.setBounds(152, 153, 96, 27);
+		btnValidar.setBounds(150, 134, 96, 27);
 		contentPane.add(btnValidar);
 		
 		JButton btnGenerar = new JButton("Generar");
 		btnGenerar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				DTORut dtoRut = controlador.generarRut();
 				String rut = dtoRut.getRut().split("-")[0];
@@ -90,44 +95,61 @@ public class IUPrincipal extends JFrame {
 				textFieldDigito.setText(digitoV);
 			}
 		});
-		btnGenerar.setBounds(260, 153, 96, 27);
+		btnGenerar.setBounds(260, 134, 96, 27);
 		contentPane.add(btnGenerar);
 		
 		JButton btnSalir = new JButton("Salir");
-		btnSalir.setBounds(12, 153, 96, 27);
+		btnSalir.setBounds(25, 134, 74, 27);
 		contentPane.add(btnSalir);
 		
 		JLabel lblRut = new JLabel("RUT:");
 		lblRut.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblRut.setBounds(51, 87, 51, 17);
+		lblRut.setBounds(36, 71, 51, 17);
 		contentPane.add(lblRut);
 		
 		textFieldRut = new JTextField();
-		textFieldRut.setBounds(105, 86, 61, 21);
+		textFieldRut.setBounds(80, 70, 61, 21);
 		contentPane.add(textFieldRut);
 		textFieldRut.setColumns(10);
 		
 		JLabel labelGuion = new JLabel("-");
 		labelGuion.setFont(new Font("Dialog", Font.BOLD, 16));
-		labelGuion.setBounds(169, 87, 6, 17);
+		labelGuion.setBounds(140, 71, 12, 17);
 		contentPane.add(labelGuion);
 		
 		textFieldDigito = new JTextField();
-		textFieldDigito.setBounds(178, 86, 12, 21);
+		textFieldDigito.setBounds(150, 70, 12, 21);
 		contentPane.add(textFieldDigito);
 		textFieldDigito.setColumns(10);
 		
 		JButton btnCopiar = new JButton("Copiar");
 		btnCopiar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				copiarRut();
 			}
 		});
-		btnCopiar.setBounds(232, 83, 69, 27);
+		btnCopiar.setBounds(191, 67, 69, 27);
 		contentPane.add(btnCopiar);
 		
+		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				textFieldRut.setText("");
+				textFieldDigito.setText("");
+			}
+		});
+		btnLimpiar.setBounds(272, 67, 74, 27);
+		contentPane.add(btnLimpiar);
+		
+		JLabel lblMLuna = new JLabel("lunamarcose © 2017");
+		lblMLuna.setBounds(236, 184, 120, 17);
+		contentPane.add(lblMLuna);
+		
 		textFieldRut.addKeyListener(new KeyAdapter() {
-		    public void keyTyped(KeyEvent e) { 
+		    @Override
+			public void keyTyped(KeyEvent e) { 
 		        if (textFieldRut.getText().length() >= 8 ) // limit textfield to 3 characters
 		            e.consume(); 
 		    }  
