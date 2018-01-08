@@ -150,8 +150,16 @@ public class IUPrincipal extends JFrame {
 		textFieldRut.addKeyListener(new KeyAdapter() {
 		    @Override
 			public void keyTyped(KeyEvent e) { 
-		        if (textFieldRut.getText().length() >= 8 ) // limit textfield to 3 characters
-		            e.consume(); 
+		        if (textFieldRut.getText().length() >= 8 ) // limit textfield to 8 characters
+		            e.consume();
+		    }  
+		});
+		
+		textFieldDigito.addKeyListener(new KeyAdapter() {
+		    @Override
+			public void keyTyped(KeyEvent e) { 
+		        if (textFieldDigito.getText().length() >= 1 ) // limit textfield to 1 characters
+		            e.consume();
 		    }  
 		});
 	}
