@@ -26,6 +26,10 @@ import java.awt.Toolkit;
 
 public class IUPrincipal extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldRut;
 	private ControladorValidarRut controlador;
@@ -99,6 +103,11 @@ public class IUPrincipal extends JFrame {
 		contentPane.add(btnGenerar);
 		
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
 		btnSalir.setBounds(25, 134, 74, 27);
 		contentPane.add(btnSalir);
 		
